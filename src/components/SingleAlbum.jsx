@@ -70,11 +70,11 @@ const SingleAlbumPage = () => {
                                 <div>Title: {album.title}</div>
                                 <div>
                                     Artist:{" "}
-                                    {/* <Link>
+                                    <Link>
                                         {album.musician.art_name
                                             ? album.musician.art_name
                                             : `${album.musician.first_name} ${album.musician.last_name}`}
-                                    </Link> */}
+                                    </Link>
                                 </div>
                                 <div>
                                     Year Of Pubblication:{" "}
@@ -83,11 +83,11 @@ const SingleAlbumPage = () => {
                                 <div>Total Songs: {album.number_of_songs}</div>
                                 <div>
                                     <p>Genre:</p>
-                                    {/* <ul>
+                                    <ul>
                                         {album.genre.map((g, i) => (
                                             <li key={i}>{g}</li>
                                         ))}
-                                    </ul> */}
+                                    </ul>
                                 </div>
                             </div>
                         )}
