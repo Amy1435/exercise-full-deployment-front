@@ -116,7 +116,7 @@ const AlbumModel = ({ isOpen, setIsOpen, onSave, albumData }) => {
                         onChange={(e) => changeValue("title", e.target.value)}
                     ></input>
                 </div>
-                <div className="form-data required">
+                <div className="form-data">
                     <p>Number of songs</p>
                     <input
                         type="text"
@@ -134,8 +134,8 @@ const AlbumModel = ({ isOpen, setIsOpen, onSave, albumData }) => {
                         onChange={(e) => changeValue("genre", e.target.value)}
                     ></input>
                 </div>
-                <div className="form-data required">
-                    <p>year_of_publication</p>
+                <div className="form-data">
+                    <p>Year Of Publication</p>
                     <input
                         type="text"
                         value={data.year_of_publication}
@@ -145,7 +145,7 @@ const AlbumModel = ({ isOpen, setIsOpen, onSave, albumData }) => {
                     ></input>
                 </div>
                 <div className="form-data">
-                    <p>url_album:</p>
+                    <p>URL Album Image</p>
                     <input
                         type="text"
                         value={data.url_album}
@@ -170,7 +170,7 @@ const AlbumModel = ({ isOpen, setIsOpen, onSave, albumData }) => {
                         onChange={(value) => changeValue("musician", value)}
                     ></MusicianSelect>
                 </div>
-                <div>
+                <div className="btn-create">
                     <span
                         className={`${isLoading ? "disabled" : ""}  `}
                         onClick={() => {

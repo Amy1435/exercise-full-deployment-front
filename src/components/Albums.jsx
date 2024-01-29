@@ -13,6 +13,10 @@ const Albums = () => {
         const getAlbumData = async () => {
             try {
                 const { data } = await axios.get(`${VITE_URL_API}/albums`);
+                console.log(
+                    "data " + JSON.stringify(data[0].musician.art_name)
+                );
+
                 setAlbums(data);
             } catch (error) {
                 console.log(error);
@@ -21,6 +25,7 @@ const Albums = () => {
         };
         getAlbumData();
     }, []);
+
     console.log(albums);
     return (
         <>
@@ -37,7 +42,7 @@ const Albums = () => {
                             <div key={album._id} className="albums resources">
                                 <div className="albums slug">
                                     <Link to={`/albums/${album.slug}`}>
-                                        Title: {album.title}
+                                        {album.title}
                                     </Link>
                                 </div>
                                 <figure>
@@ -46,11 +51,13 @@ const Albums = () => {
                                         alt="album-logo"
                                     />
                                 </figure>
+
                                 <div className="albums info">
-                                    <p>Genre: {album.genre}</p>
                                     <p>
-                                        Year of pubblication:
-                                        {album.year_of_publication}
+                                        Musician:{" "}
+                                        {album.musician.art_name
+                                            ? album.musician.art_name
+                                            : `${album.musician.first_name} ${album.musician.last_name}`}
                                     </p>
                                 </div>
                             </div>

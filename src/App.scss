@@ -6,6 +6,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+body {
+    background-color: black;
+}
+
 img {
     box-sizing: border-box;
 }
@@ -44,9 +48,33 @@ img {
     .title {
         display: flex;
         justify-content: center;
-        font-size: 1.5rem;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.4rem;
         color: #97da7b;
     }
+
+    button {
+        font-size: 1.5rem;
+        width: 45px;
+        height: 45px;
+        background-color: #1c1c1c;
+        color: #97da7b;
+        border: none;
+        border-radius: 10px;
+        &:hover {
+            background-color: #97da7b;
+            color: #1c1c1c;
+            cursor: pointer;
+        }
+    }
+}
+
+//LINK A
+a {
+    color: #97da7b;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 //ALBUMS/MUSICIANS
@@ -54,7 +82,7 @@ img {
     display: grid;
     grid-template-columns: repeat(3, 400px);
     justify-content: center;
-    margin-top: 3rem;
+    margin: 3rem 0 3rem 0;
 
     gap: 2rem;
     .resources {
@@ -69,22 +97,113 @@ img {
     figure {
         img {
             width: 250px;
+            margin: 10px 0 10px 0;
         }
     }
     .info {
         color: white;
-        margin-top: 1rem;
+    }
+    .slug {
+        font-size: 1.4rem;
     }
 }
 
 //FORM
 dialog {
     padding: 3rem;
-}
-.form-data {
-    &.required {
-        p::after {
-            content: "*";
+    width: 400px;
+    .btn-exit {
+        font-size: 1rem;
+        width: 30px;
+        background-color: #97da7b;
+        color: #1c1c1c;
+        cursor: pointer;
+        border: none;
+        border-radius: 7px;
+        margin-bottom: 1rem;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        .form-data {
+            &.required {
+                p::after {
+                    content: " *";
+                }
+            }
+            input,
+            select {
+                border-radius: 5px;
+                border: 2px solid #97da7b;
+                width: 200px;
+                outline: none;
+            }
         }
+        .btn-create {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+
+            span {
+                background-color: #da7b9b;
+                display: inline-block;
+                padding: 0.9rem;
+                width: 55px;
+                height: 18px;
+                .disabled {
+                    pointer-events: none;
+                }
+            }
+            button {
+                background-color: #97da7b;
+                border: none;
+                font-size: 1rem;
+                width: 80px;
+                height: 50px;
+            }
+            span,
+            button {
+                border-radius: 10px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+//ALBUM/MUSICIAN
+.page.album {
+    margin-left: 3rem;
+    padding: 2rem;
+    color: white;
+    background-color: black;
+    figure {
+        img {
+            width: 400px;
+            margin: 10px 0 10px 0;
+        }
+    }
+    ul {
+        margin-left: 1.5rem;
+        color: inherit;
+    }
+    .btn-album {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .button {
+        color: #1c1c1c;
+        border: none;
+        font-size: 1.1rem;
+        width: 70px;
+        margin-top: 0.5rem;
+    }
+    .green {
+        background-color: #97da7b;
+    }
+    .red {
+        background-color: #da7b9b;
     }
 }

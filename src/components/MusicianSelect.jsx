@@ -20,7 +20,7 @@ const MusicianSelect = ({ value, onChange, required }) => {
 
                 setOptions([
                     {
-                        label: "select musician",
+                        label: "Select musician",
                         value: "",
                     },
                     ...optionsMusicians,

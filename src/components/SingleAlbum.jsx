@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import Modal from "./Modal";
 import AlbumModel from "./AlbumModel";
@@ -46,6 +46,7 @@ const SingleAlbumPage = () => {
         getReasourceBySlug();
     }, [slug]);
 
+    console.log(album);
     return (
         <>
             {error || album === null ? (
@@ -58,45 +59,93 @@ const SingleAlbumPage = () => {
                         </div>
                         {album === undefined && <div>Loading...</div>}
 
-                        {album && <div>{album.title}</div>}
+                        {album && (
+                            <div className="album-info">
+                                <figure>
+                                    <img
+                                        src={`${album.url_album}`}
+                                        alt="album cover"
+                                    />
+                                </figure>
+                                <div>Title: {album.title}</div>
+                                <div>
+                                    Artist:{" "}
+                                    {/* <Link>
+                                        {album.musician.art_name
+                                            ? album.musician.art_name
+                                            : `${album.musician.first_name} ${album.musician.last_name}`}
+                                    </Link> */}
+                                </div>
+                                <div>
+                                    Year Of Pubblication:{" "}
+                                    {album.year_of_publication}
+                                </div>
+                                <div>Total Songs: {album.number_of_songs}</div>
+                                <div>
+                                    <p>Genre:</p>
+                                    {/* <ul>
+                                        {album.genre.map((g, i) => (
+                                            <li key={i}>{g}</li>
+                                        ))}
+                                    </ul> */}
+                                </div>
+                            </div>
+                        )}
+                        <div className="btn-album">
+                            <button
+                                className="button green"
+                                onClick={() => setEditModalOpen(true)}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="button red"
+                                onClick={() => setDeleteModalOpen(true)}
+                                disabled={isDeliting}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                        <Modal
+                            isOpen={deleteModalOpen}
+                            setIsOpen={setDeleteModalOpen}
+                            title={`Do you want to delete this Album?`}
+                        >
+                            <p>
+                                If you press DELETE this Album will not exist
+                                anymore.
+                            </p>
+                            <div className="btn-album">
+                                <button
+                                    className="button green"
+                                    onClick={() => setDeleteModalOpen(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={deleteAlbum}
+                                    className="button red"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </Modal>
+                        <AlbumModel
+                            title={`Do you wanna delete this Album`}
+                            isOpen={editModalOpen}
+                            setIsOpen={setEditModalOpen}
+                            onSave={(newAlbum) => {
+                                if (newAlbum.slug !== album.slug) {
+                                    navigate(`/albums/${newAlbum.slug}`);
+                                    return;
+                                }
+                                setAlbum(newAlbum);
+                            }}
+                            albumData={album}
+                        />
                     </div>
                 </>
             )}
-            <div>
-                <button onClick={() => setEditModalOpen(true)}>Edit</button>
-                <button
-                    onClick={() => setDeleteModalOpen(true)}
-                    disabled={isDeliting}
-                >
-                    Cancel
-                </button>
-            </div>
-            <Modal
-                isOpen={deleteModalOpen}
-                setIsOpen={setDeleteModalOpen}
-                title={`Do you wanna delete this Album`}
-            >
-                <p>If you press delete this Album will not exist anymore.</p>
-                <div>
-                    <button onClick={deleteAlbum}>Delete</button>
-                    <button onClick={() => setDeleteModalOpen(false)}>
-                        Cancel
-                    </button>
-                </div>
-            </Modal>
-            <AlbumModel
-                title={`Do you wanna delete this Album`}
-                isOpen={editModalOpen}
-                setIsOpen={setEditModalOpen}
-                onSave={(newAlbum) => {
-                    if (newAlbum.slug !== album.slug) {
-                        navigate(`/albums/${newAlbum.slug}`);
-                        return;
-                    }
-                    setAlbum(newAlbum);
-                }}
-                albumData={album}
-            />
         </>
     );
 };

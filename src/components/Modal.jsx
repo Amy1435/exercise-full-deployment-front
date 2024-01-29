@@ -11,7 +11,9 @@ const Modal = ({ isOpen, setIsOpen, title, children }) => {
     }, [isOpen]);
     return (
         <dialog ref={dialogRef}>
-            <button onClick={() => setIsOpen(false)}>x</button>
+            <button className="btn-exit" onClick={() => setIsOpen(false)}>
+                x
+            </button>
             <h1>{title}</h1>
             <div>{children}</div>
         </dialog>
