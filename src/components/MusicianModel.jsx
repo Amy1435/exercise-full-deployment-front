@@ -177,7 +177,7 @@ const MusicianModel = ({ isOpen, setIsOpen, onSave, musicianData }) => {
                         onChange={(e) => changeValue("hobbies", e.target.value)}
                     ></input>
                 </div>
-                <div>
+                <div className="btn-create">
                     <span
                         className={`${isLoading ? "disabled" : ""}  `}
                         onClick={() => {

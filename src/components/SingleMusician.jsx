@@ -6,7 +6,7 @@ import Modal from "./Modal";
 import MusicianModel from "./MusicianModel";
 const { VITE_URL_API } = import.meta.env;
 
-const SingleAlbumPage = () => {
+const SinglemusicianPage = () => {
     const [musician, setmusician] = useState({});
     const [error, setError] = useState();
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -52,70 +52,152 @@ const SingleAlbumPage = () => {
                 <NotFound />
             ) : (
                 <>
-                    <div className="page album">
+                    <div className="page musician">
                         <div className="title">
                             <h1>Musician: {musician.art_name}</h1>
                         </div>
                         {musician === undefined && <div>Loading...</div>}
 
                         {musician && (
-                            <div>
-                                <p> Name: {musician.first_name}</p>
-                                <ul>
-                                    {musician.albums?.map((a) => (
-                                        <li key={a._id}>
-                                            <Link to={`/albums/${a.slug}`}>
-                                                {a.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
+                            <div className="musician-info">
+                                <figure>
+                                    {musician.url_img ? (
+                                        <img
+                                            src={musician.url_img}
+                                            alt="musician cover"
+                                        />
+                                    ) : (
+                                        <img
+                                            src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                                            alt="No image found"
+                                        />
+                                    )}
+                                </figure>
+                                <div>
+                                    Official Name:{" "}
+                                    {`${musician.first_name} ${musician.last_name}`}
+                                </div>
+                                <div>
+                                    Art Name: {""}
+                                    {musician.art_name
+                                        ? musician.art_name
+                                        : `${musician.first_name} ${musician.last_name}`}
+                                </div>
+                                <div>
+                                    Birth Place:{" "}
+                                    {musician.birth_place
+                                        ? musician.birth_place
+                                        : "Not known"}
+                                </div>
+                                <div>
+                                    Birth Date:{" "}
+                                    {musician.birth_date
+                                        ? musician.birth_date
+                                        : "Not known"}
+                                </div>
+                                <div>
+                                    Awards: {""}
+                                    {musician.awards &&
+                                    musician.awards.length > 0 ? (
+                                        <ul>
+                                            {musician.awards.map((a, i) => (
+                                                <li key={i}>{a}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        "Not known"
+                                    )}
+                                </div>
+                                <div>
+                                    Hobbies : {""}
+                                    {musician.hobbies &&
+                                    musician.hobbies.length > 0 ? (
+                                        <ul>
+                                            {musician.hobbies.map((h, i) => (
+                                                <li key={i}>{h}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        "Not known"
+                                    )}
+                                </div>
+                                <div>
+                                    Albums : {""}
+                                    {musician.albums &&
+                                    musician.albums.length > 0 ? (
+                                        <ul>
+                                            {musician.albums.map((a, i) => (
+                                                <Link
+                                                    key={i}
+                                                    to={`/albums/${a.slug}`}
+                                                >
+                                                    <li>{a.title}</li>
+                                                </Link>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        "Not known"
+                                    )}
+                                </div>
+                                <div className="singlebtn">
+                                    <button
+                                        className="button green"
+                                        onClick={() => setEditModalOpen(true)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="button red"
+                                        onClick={() => setDeleteModalOpen(true)}
+                                        disabled={isDeliting}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
                         )}
-                    </div>
-
-                    <div>
-                        <button onClick={() => setEditModalOpen(true)}>
-                            Edit
-                        </button>
-                        <button
-                            onClick={() => setDeleteModalOpen(true)}
-                            disabled={isDeliting}
+                        <Modal
+                            isOpen={deleteModalOpen}
+                            setIsOpen={setDeleteModalOpen}
+                            title={`Do you wanna delete this musician`}
                         >
-                            Cancel
-                        </button>
+                            <p>
+                                If you press delete this musician will not exist
+                                anymore.
+                            </p>
+                            <div className="singlebtn">
+                                <button
+                                    className="button red"
+                                    onClick={deleteMusician}
+                                >
+                                    Delete
+                                </button>
+                                <button
+                                    className="button green"
+                                    onClick={() => setDeleteModalOpen(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </Modal>
+                        <MusicianModel
+                            title={`Do you wanna delete this musician`}
+                            isOpen={editModalOpen}
+                            setIsOpen={setEditModalOpen}
+                            onSave={(newMusician) => {
+                                if (newMusician.slug !== musician.slug) {
+                                    navigate(`/musician/${newMusician.slug}`);
+                                    return;
+                                }
+                                setmusician(newMusician);
+                            }}
+                            musicianData={musician}
+                        />
                     </div>
                 </>
             )}
-
-            <Modal
-                isOpen={deleteModalOpen}
-                setIsOpen={setDeleteModalOpen}
-                title={`Do you wanna delete this musician`}
-            >
-                <p>If you press delete this musician will not exist anymore.</p>
-                <div>
-                    <button onClick={deleteMusician}>Delete</button>
-                    <button onClick={() => setDeleteModalOpen(false)}>
-                        Cancel
-                    </button>
-                </div>
-            </Modal>
-            <MusicianModel
-                title={`Do you wanna delete this musician`}
-                isOpen={editModalOpen}
-                setIsOpen={setEditModalOpen}
-                onSave={(newMusician) => {
-                    if (newMusician.slug !== musician.slug) {
-                        navigate(`/musician/${newMusician.slug}`);
-                        return;
-                    }
-                    setmusician(newMusician);
-                }}
-                musicianData={musician}
-            />
         </>
     );
 };
 
-export default SingleAlbumPage;
+export default SinglemusicianPage;

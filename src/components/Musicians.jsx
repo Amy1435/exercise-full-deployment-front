@@ -40,18 +40,21 @@ const MusiciansPage = () => {
                             >
                                 <div className="albums slug">
                                     <Link to={`/musicians/${musician.slug}`}>
-                                        ArtName: {musician.art_name}
+                                        {musician.art_name
+                                            ? musician.art_name
+                                            : `${musician.first_name} ${musician.last_name}`}
                                     </Link>
                                 </div>
                                 <figure>
                                     <img
-                                        src={`${musician.url_img}`}
+                                        src={`${
+                                            musician.url_img
+                                                ? musician.url_img
+                                                : `https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg`
+                                        }`}
                                         alt="musician-logo"
                                     />
                                 </figure>
-                                <div className="musicians info">
-                                    <p>Age: {musician.age}</p>
-                                </div>
                             </div>
                         ))}
                     </div>

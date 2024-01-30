@@ -62,36 +62,55 @@ const SingleAlbumPage = () => {
                         {album && (
                             <div className="album-info">
                                 <figure>
-                                    <img
-                                        src={`${album.url_album}`}
-                                        alt="album cover"
-                                    />
+                                    {album.url_album ? (
+                                        <img
+                                            src={album.url_album}
+                                            alt="album cover"
+                                        />
+                                    ) : (
+                                        <img
+                                            src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                                            alt="No image found"
+                                        />
+                                    )}
                                 </figure>
                                 <div>Title: {album.title}</div>
                                 <div>
-                                    Artist:{" "}
-                                    <Link>
-                                        {album.musician.art_name
-                                            ? album.musician.art_name
-                                            : `${album.musician.first_name} ${album.musician.last_name}`}
-                                    </Link>
+                                    Artist: {""}
+                                    {album.musician ? (
+                                        <Link
+                                            to={`/musicians/${album.musician.slug}`}
+                                        >
+                                            {album.musician.art_name}
+                                        </Link>
+                                    ) : album.musician ? (
+                                        <Link>{`${album.musician.first_name} ${album.musician.last_name}`}</Link>
+                                    ) : (
+                                        <span>Unknown Artist</span>
+                                    )}
                                 </div>
                                 <div>
                                     Year Of Pubblication:{" "}
-                                    {album.year_of_publication}
+                                    {album.year_of_publication
+                                        ? album.year_of_publication
+                                        : "Not known"}
                                 </div>
                                 <div>Total Songs: {album.number_of_songs}</div>
                                 <div>
-                                    <p>Genre:</p>
-                                    <ul>
-                                        {album.genre.map((g, i) => (
-                                            <li key={i}>{g}</li>
-                                        ))}
-                                    </ul>
+                                    Genre: {""}
+                                    {album.genre && album.genre.length > 0 ? (
+                                        <ul>
+                                            {album.genre.map((g, i) => (
+                                                <li key={i}>{g}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        "Not known"
+                                    )}
                                 </div>
                             </div>
                         )}
-                        <div className="btn-album">
+                        <div className="singlebtn">
                             <button
                                 className="button green"
                                 onClick={() => setEditModalOpen(true)}
@@ -115,7 +134,7 @@ const SingleAlbumPage = () => {
                                 If you press DELETE this Album will not exist
                                 anymore.
                             </p>
-                            <div className="btn-album">
+                            <div className="singlebtn">
                                 <button
                                     className="button green"
                                     onClick={() => setDeleteModalOpen(false)}
