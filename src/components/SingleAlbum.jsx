@@ -77,16 +77,18 @@ const SingleAlbumPage = () => {
                                 <div>Title: {album.title}</div>
                                 <div>
                                     Artist: {""}
-                                    {album.musician ? (
+                                    {album.musician && (
                                         <Link
-                                            to={`/musicians/${album.musician.slug}`}
+                                            to={`/musicians/${
+                                                album.musician.slug
+                                                    ? album.musician.slug
+                                                    : ""
+                                            }`}
                                         >
-                                            {album.musician.art_name}
+                                            {album.musician
+                                                ? album.musician.art_name
+                                                : `${album.musician.first_name} ${album.musician.last_name}`}
                                         </Link>
-                                    ) : album.musician ? (
-                                        <Link>{`${album.musician.first_name} ${album.musician.last_name}`}</Link>
-                                    ) : (
-                                        <span>Unknown Artist</span>
                                     )}
                                 </div>
                                 <div>

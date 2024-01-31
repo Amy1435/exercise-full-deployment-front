@@ -6,6 +6,7 @@ import SingleAlbum from "./components/SingleAlbum";
 import SingleMusician from "./components/SingleMusician";
 import "./App.scss";
 import { Routes, Route, NavLink } from "react-router-dom";
+import LogIn from "./components/LogIn";
 
 function App() {
     return (
@@ -34,6 +35,11 @@ function App() {
                                 Musicians
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink className="menu-li" to="/log-in">
+                                Log In
+                            </NavLink>
+                        </li>
                     </nav>
                 </menu>
             </div>
@@ -50,6 +56,7 @@ function App() {
                     <Route path=":slug" element={<SingleMusician />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
+                <Route path="/log-in" element={<LogIn />} />
             </Routes>
         </>
     );

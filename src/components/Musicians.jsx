@@ -30,7 +30,11 @@ const MusiciansPage = () => {
                     <button onClick={() => setModalOpen(true)}>+</button>
                 </div>
                 {error && <p>Server Error</p>}
-                {musicians.length === 0 && <p>No Musicians found</p>}
+                {musicians.length === 0 && (
+                    <div className="loader-container">
+                        <div className="loader"></div>
+                    </div>
+                )}
                 {!error && musicians.length > 0 && (
                     <div className="musicians wrapper">
                         {musicians.map((musician) => (

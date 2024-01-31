@@ -35,7 +35,11 @@ const Albums = () => {
                     <button onClick={() => setModalOpen(true)}>+</button>
                 </div>
                 {error && <p>Server Error</p>}
-                {albums.length === 0 && <p>Loading...</p>}
+                {albums.length === 0 && (
+                    <div className="loader-container">
+                        <div className="loader"></div>
+                    </div>
+                )}
                 {!error && albums.length > 0 && (
                     <div className="albums wrapper">
                         {albums.map((album) => (

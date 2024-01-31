@@ -48,7 +48,7 @@ const SinglemusicianPage = () => {
     console.log(musician);
     return (
         <>
-            {error || musician === null ? (
+            {error || musician === undefined ? (
                 <NotFound />
             ) : (
                 <>
